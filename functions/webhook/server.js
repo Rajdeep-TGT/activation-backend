@@ -3,6 +3,16 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { connectDB, saveActivationKeyToMongo } = require('../../db'); // ✅ this is correct
+// webhook/index.js
+const { generateActivationKey } = require('../utils/generateKey');
+
+module.exports = async function (context, req) {
+  const key = generateActivationKey();
+  context.res = {
+    status: 200,
+    body: { key },
+  };
+};
 
 dotenv.config();
 
